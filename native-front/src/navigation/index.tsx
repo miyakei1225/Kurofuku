@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -18,6 +18,7 @@ import TabOneScreen from '../screens/TabOneScreen'
 import TabTwoScreen from '../screens/TabTwoScreen'
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types'
 import LinkingConfiguration from './LinkingConfiguration'
+import MyPageScreen from '../screens/MyPageScreen'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -86,6 +87,24 @@ function BottomTabNavigator() {
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />
         }}
+      />
+      <BottomTab.Screen
+        name="MyPage"
+        component={MyPageScreen}
+        options={({ navigation }: RootTabScreenProps<'MyPage'>) => ({
+          title: 'MyPage',
+          tabBarIcon: ({ color }) => <FontAwesome5 name="user-tie" size={24} color="black" />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Modal')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1
+              })}
+            >
+              <FontAwesome5 name="user-tie" size={24} color="black" />
+            </Pressable>
+          )
+        })}
       />
     </BottomTab.Navigator>
   )
