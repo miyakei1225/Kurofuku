@@ -19,6 +19,8 @@ import TabTwoScreen from '../screens/TabTwoScreen'
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types'
 import LinkingConfiguration from './LinkingConfiguration'
 import MyPageScreen from '../screens/MyPageScreen'
+import RequestScreen from '../screens/RequestScreen'
+import ChatScreen from '../screens/ChatScreen'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -89,10 +91,46 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={({ navigation }: RootTabScreenProps<'Chat'>) => ({
+          title: 'チャット',
+          tabBarIcon: ({ color }) => <FontAwesome5 name="user-tie" size={24} color="black" />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Modal')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1
+              })}
+            >
+              <FontAwesome5 name="user-tie" size={24} color="black" />
+            </Pressable>
+          )
+        })}
+      />
+      <BottomTab.Screen
+        name="Request"
+        component={RequestScreen}
+        options={({ navigation }: RootTabScreenProps<'Request'>) => ({
+          title: '依頼',
+          tabBarIcon: ({ color }) => <FontAwesome5 name="user-tie" size={24} color="black" />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Modal')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1
+              })}
+            >
+              <FontAwesome5 name="user-tie" size={24} color="black" />
+            </Pressable>
+          )
+        })}
+      />
+      <BottomTab.Screen
         name="MyPage"
         component={MyPageScreen}
         options={({ navigation }: RootTabScreenProps<'MyPage'>) => ({
-          title: 'MyPage',
+          title: 'マイページ',
           tabBarIcon: ({ color }) => <FontAwesome5 name="user-tie" size={24} color="black" />,
           headerRight: () => (
             <Pressable
