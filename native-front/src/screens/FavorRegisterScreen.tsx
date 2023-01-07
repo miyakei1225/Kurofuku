@@ -1,46 +1,75 @@
 import { RootStackScreenProps } from '../../types'
-import { Box, ScrollView, Text } from 'native-base'
-import { Button, TextInput, View } from 'react-native'
-import { Formik, Field, Form, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-
-const schema = Yup.object().shape({
-  userName: Yup.string().max(15, '15文字以下で入力してください').required('Required'),
-  email: Yup.string().email('Invalid email address').required('Required')
-})
+import { Box, Center, FormControl, Input, ScrollView, Stack, Text, WarningOutlineIcon } from 'native-base'
+import { Button, View } from 'react-native'
+import { Formik } from 'formik'
+import { FAVOR_CREATE_SCHEMA } from '../features/Favors/validations/schema'
 
 export default function FavorRegisterScreen({ navigation }: RootStackScreenProps<'FavorRegister'>) {
   return (
-    <ScrollView w={['100%', '100%']} h="100">
+    <ScrollView w={['100%', '100%']} h="100%">
       <Box bgColor="white">
         <View>
           <Text>登録ページ</Text>
           <Formik
             initialValues={{ userName: '', email: '', password: '' }}
             onSubmit={(values) => console.log(values)}
-            validationSchema={schema}
+            validationSchema={FAVOR_CREATE_SCHEMA}
           >
             {({ handleChange, handleBlur, handleSubmit, isValid, isSubmitting, values, errors, touched }) => (
               <View>
-                <Text>ユーザー名:</Text>
-                <TextInput
-                  onChangeText={handleChange('userName')}
-                  onBlur={handleBlur('userName')}
-                  value={values.userName}
-                />
-                {errors.userName && touched.userName ? <Text>{errors.userName}</Text> : null}
-                <Text>Email:</Text>
-                <TextInput onChangeText={handleChange('email')} onBlur={handleBlur('email')} value={values.email} />
-                {errors.email && touched.email ? <Text>{errors.email}</Text> : null}
-                <Text>Password:</Text>
-                <TextInput
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                />
-                {errors.password && touched.password ? <Text>{errors.password}</Text> : null}
-                {/* @ts-ignore */}
-                <Button onPress={handleSubmit} title="Submit" />
+                <Center>
+                  <Stack space={4}>
+                    <FormControl w="100%">
+                      <FormControl.Label>ユーザー名:</FormControl.Label>
+                      <Input
+                        width={'50%'}
+                        size={'lg'}
+                        onChangeText={handleChange('userName')}
+                        onBlur={handleBlur('userName')}
+                        value={values.userName}
+                        placeholder={'例: 田中 太郎'}
+                      />
+                      {errors.userName && touched.userName ? (
+                        <Text color={'red'}>
+                          <WarningOutlineIcon size="xs" />
+                          {errors.userName}
+                        </Text>
+                      ) : null}
+                      <FormControl.Label>Email:</FormControl.Label>
+                      <Input
+                        width={'50%'}
+                        size={'lg'}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        value={values.email}
+                        placeholder={'例: example@email.com'}
+                      />
+                      {errors.email && touched.email ? (
+                        <Text>
+                          <WarningOutlineIcon size="xs" />
+                          {errors.email}
+                        </Text>
+                      ) : null}
+                      <FormControl.Label>Password:</FormControl.Label>
+                      <Input
+                        width={'50%'}
+                        size={'lg'}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        value={values.password}
+                        placeholder={'半角英数字8文字以上で入力してください'}
+                      />
+                      {errors.password && touched.password ? (
+                        <Text>
+                          <WarningOutlineIcon size="xs" />
+                          {errors.password}
+                        </Text>
+                      ) : null}
+                      {/* @ts-ignore */}
+                      <Button onPress={handleSubmit} title="Submit" disabled={!isValid || isSubmitting} />
+                    </FormControl>
+                  </Stack>
+                </Center>
               </View>
             )}
           </Formik>
