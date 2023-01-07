@@ -30,8 +30,10 @@ export default function FavorRegisterScreen({ navigation }: RootStackScreenProps
                         placeholder={'例: 田中 太郎'}
                       />
                       {errors.userName && touched.userName ? (
-                        <Text color={'red'}>
-                          <WarningOutlineIcon size="xs" />
+                        <Text style={{ color: 'red' }}>
+                          <Box color={'blue'}>
+                            <WarningOutlineIcon size="xs" />
+                          </Box>
                           {errors.userName}
                         </Text>
                       ) : null}
@@ -45,7 +47,7 @@ export default function FavorRegisterScreen({ navigation }: RootStackScreenProps
                         placeholder={'例: example@email.com'}
                       />
                       {errors.email && touched.email ? (
-                        <Text>
+                        <Text style={{ color: 'red' }}>
                           <WarningOutlineIcon size="xs" />
                           {errors.email}
                         </Text>
@@ -60,7 +62,7 @@ export default function FavorRegisterScreen({ navigation }: RootStackScreenProps
                         placeholder={'半角英数字8文字以上で入力してください'}
                       />
                       {errors.password && touched.password ? (
-                        <Text>
+                        <Text style={{ color: 'red' }}>
                           <WarningOutlineIcon size="xs" />
                           {errors.password}
                         </Text>
