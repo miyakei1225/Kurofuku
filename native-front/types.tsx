@@ -13,10 +13,12 @@ declare global {
   }
 }
 
+// ページを追加する際にプロパティも追加する
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined
   Modal: undefined
   NotFound: undefined
+  FavorRegister: undefined
 }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -24,11 +26,12 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
   Screen
 >
 
+// ページ下のタブを追加する際にプロパティも追加する
 export type RootTabParamList = {
   TabOne: undefined
   TabTwo: undefined
   MyPage: undefined
-  Request: undefined
+  FavorList: undefined
   Chat: undefined
 }
 

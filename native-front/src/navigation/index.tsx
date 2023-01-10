@@ -19,8 +19,9 @@ import TabTwoScreen from '../screens/TabTwoScreen'
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types'
 import LinkingConfiguration from './LinkingConfiguration'
 import MyPageScreen from '../screens/MyPageScreen'
-import RequestScreen from '../screens/RequestScreen'
 import ChatScreen from '../screens/ChatScreen'
+import FavorRegisterScreen from '../screens/FavorRegisterScreen'
+import FavorListScreen from '../screens/FavorListScreen'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -38,9 +39,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
   return (
+    // ここにページコンポーネントを追加していく
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="FavorRegister" component={FavorRegisterScreen} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
@@ -109,9 +112,9 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="Request"
-        component={RequestScreen}
-        options={({ navigation }: RootTabScreenProps<'Request'>) => ({
+        name="FavorList"
+        component={FavorListScreen}
+        options={({ navigation }: RootTabScreenProps<'FavorList'>) => ({
           title: '依頼',
           tabBarIcon: ({ color }) => <FontAwesome5 name="user-tie" size={24} color="black" />,
           headerRight: () => (
